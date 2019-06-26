@@ -1,18 +1,81 @@
 {
   "strings": {
-    "content": "Koji P5 Scaffold"
+    "fontFamily": "https://fonts.googleapis.com/css?family=Russo+One",
+    "title": "Game Template",
+    "instructions1": "This is an extension of the P5 Scaffold",
+    "instructions2": "Game instructions go here!",
+    "instructions3": "Let's see what you can make!",
+    "gameOverText": "GAME OVER",
+    "highScoreText": "High Score:",
+    "playButtonText": "PLAY NOW",
+    "scoreText": "Score:",
+    "highscoreText": "High Score:",
+    "highscoreGainedText": "New High Score!",
+    "health": "3",
+    "lives": "3"
   },
   "@@editor": [
     {
       "key": "strings",
-      "name": "Strings",
-      "icon": "📚",
+      "name": "Game Settings",
+      "icon": "💡",
       "source": "strings.json",
       "fields": [
         {
-          "key": "content",
-          "name": "Page Content",
-          "description": "The text that is displayed on the page",
+          "key": "title",
+          "name": "Game Title",
+          "description": "The title that is displayed in the start menu",
+          "type": "text"
+        },
+        {
+          "key": "instructions1",
+          "name": "Game Instructions 1",
+          "type": "text"
+        },
+        {
+          "key": "instructions2",
+          "name": "Game Instructions 2",
+          "type": "text"
+        },
+        {
+          "key": "instructions3",
+          "name": "Game Instructions 3",
+          "type": "text"
+        },
+        {
+          "key": "fontFamily",
+          "name": "Font Family",
+          "description": "Google fonts link to font to use in the game",
+          "type": "text"
+        },
+        {
+          "key": "playButtonText",
+          "name": "Play Button Text",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "scoreText",
+          "name": "Score Text",
+          "description": "Default: 'Score:'",
+          "type": "text"
+        },
+        {
+          "key": "highscoreText",
+          "name": "High Score Text",
+          "description": "Default: 'High Score:'",
+          "type": "text"
+        },
+        {
+          "key": "highscoreGainedText",
+          "name": "High Score Gained Text",
+          "description": "When you get a new high score",
+          "type": "text"
+        },
+        {
+          "key": "lives",
+          "name": "Max Lives",
+          "description": "How many lives you initially have",
           "type": "text"
         }
       ]

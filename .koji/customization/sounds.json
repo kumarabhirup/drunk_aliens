@@ -6,7 +6,7 @@
       {
         "key": "sounds",
         "name": "Sounds",
-        "icon": "🔊️",
+        "icon": "🎵",
         "source": "sounds.json",
         "fields": [
           {

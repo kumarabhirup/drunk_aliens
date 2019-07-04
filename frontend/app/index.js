@@ -202,7 +202,7 @@ function draw() {
 
 
         //Update and render all game objects here
-        
+
 
         //===Update all floating text objects
         for (let i = 0; i < floatingTexts.length; i++) {
@@ -229,7 +229,7 @@ function draw() {
         //Lives draw
         let lifeSize = objSize;
         for (let i = 0; i < lives; i++) {
-            image(imgLife, lifeSize/2 + lifeSize * i, lifeSize/2, lifeSize, lifeSize);
+            image(imgLife, lifeSize / 2 + lifeSize * i, lifeSize / 2, lifeSize, lifeSize);
         }
 
         cleanup();
@@ -271,6 +271,13 @@ function touchStarted() {
 }
 
 function touchEnded() {
+    //===This is required to fix a problem where the music sometimes doesn't start on mobile
+    if (soundEnabled) {
+        if (getAudioContext().state !== 'running') {
+            getAudioContext().resume();
+        }
+    }
+
     touching = false;
 }
 

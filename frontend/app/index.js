@@ -75,6 +75,7 @@ function preload() {
     //===Load settings from Game Settings
     startingLives = parseInt(Koji.config.strings.lives);
     lives = startingLives;
+    scoreGain = 1;
 
 
 }
@@ -137,7 +138,7 @@ function draw() {
 
         fill(Koji.config.colors.titleColor);
         textAlign(CENTER, TOP);
-        text(Koji.config.strings.title, width / 2, objSize * 3);
+        text(Koji.config.strings.title, width / 2, objSize * 2);
 
         //===Draw instructions
         let instructionsText = [];
@@ -212,10 +213,11 @@ function draw() {
 
         //===Ingame UI
 
+        //DELETE THIS
         textSize(objSize * 1);
         fill(Koji.config.colors.scoreColor);
         textAlign(CENTER, CENTER);
-        text("Game happens here!", width / 2, height / 2);
+        text("Game happens here!\nClick anywhere to gain score!", width / 2, height / 2);
 
 
         //===Score draw
@@ -266,6 +268,11 @@ function touchStarted() {
     if (!gameOver && !gameBeginning) {
         //Ingame
         touching = true;
+
+
+        //DELETE THIS
+        score += scoreGain;
+        floatingTexts.push(new FloatingText(mouseX, mouseY, scoreGain, Koji.config.colors.scoreColor, objSize));
 
     }
 }
@@ -330,9 +337,14 @@ function FloatingText(x, y, txt, color, size) {
     this.color = color;
 
     this.update = function () {
-        if (this.size < this.maxSize) {
-            this.size = Smooth(this.size, this.maxSize, 2);
+        if (this.timer > 0.3) {
+            if (this.size < this.maxSize) {
+                this.size = Smooth(this.size, this.maxSize, 4);
+            }
+        } else {
+            this.size = Smooth(this.size, 0.01, 4);
         }
+
 
         this.timer -= 1 / frameRate();
     }

@@ -2,8 +2,8 @@
   "strings": {
     "fontFamily": "https://fonts.googleapis.com/css?family=Russo+One",
     "title": "Game Template",
-    "instructions1": "This is an extension of the P5 Scaffold",
-    "instructions2": "Game instructions go here!",
+    "instructions1": "This is an extension of the P5 Scaffold with added functionalities",
+    "instructions2": "Check out OVERVIEW for some tips on how to use this template",
     "instructions3": "Let's see what you can make!",
     "gameOverText": "GAME OVER",
     "highScoreText": "High Score:",
@@ -12,7 +12,9 @@
     "highscoreText": "High Score:",
     "highscoreGainedText": "New High Score!",
     "health": "3",
-    "lives": "3"
+    "lives": "3",
+    "scoreGain": "1",
+    "enableCursor": false
   },
   "@@editor": [
     {
@@ -77,6 +79,18 @@
           "name": "Max Lives",
           "description": "How many lives you initially have",
           "type": "text"
+        },
+        {
+          "key": "scoreGain",
+          "name": "Score Gain",
+          "description": "Basic score gain",
+          "type": "text"
+        },
+        {
+          "key": "enableCursor",
+          "name": "Enable Cursor",
+          "description": "Show/Hide Cursor on PC during the game (visible on main menu)",
+          "type": "boolean"
         }
       ]
     }

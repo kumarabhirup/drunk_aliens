@@ -1,14 +1,14 @@
 {
   "colors": {
-    "backgroundColor": "#2383C2",
+    "backgroundColor": "#01131D",
     "textColor": "#ffffff",
-    "playButtonTextColor": "#2383C2",
-    "playButtonColor": "#EFF3F5",
-    "scoreColor": "#FFED21",
-    "highscoreColor": "#FFED21",
-    "titleColor": "#EFF3F5",
-    "instructionsColor": "#6CADD7",
-    "playButtonHoverColor": "#6CADD7",
+    "playButtonTextColor": "#01131D",
+    "playButtonColor": "#75C4F2",
+    "scoreColor": "#FFDA73",
+    "highscoreColor": "#FFDA73",
+    "titleColor": "#75C4F2",
+    "instructionsColor": "#75C4F2",
+    "playButtonHoverColor": "#396782",
     "playButtonClickColor": "#EFF3F5"
   },
   "@@editor": [

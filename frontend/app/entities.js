@@ -60,3 +60,57 @@ class Entity {
     }
 
 }
+
+//EXAMPLE
+class Node {
+    constructor(x, y) {
+        this.pos = createVector(x, y);
+        this.sizeMod = random(0.06, 0.1);
+        this.velocity = createVector(0, 0);
+        this.maxSpeed = 0.0002 * objSize;
+        this.velocityChangeTimer = random(3, 5);
+        this.drawLine = false;
+        this.mouseDist = 0;
+        this.maxDist = objSize * 8;
+    }
+
+    update() {
+        this.velocityChangeTimer -= 1 / frameRate();
+        this.maxDist = objSize * 7;
+        if (this.velocityChangeTimer <= 0) {
+            this.velocityChangeTimer = random(3, 5);
+            this.changeVelocity();
+        }
+
+        this.pos.add(this.velocity);
+        this.mouseDist = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+    }
+
+    changeVelocity() {
+        this.velocity = createVector(random(-this.maxSpeed, this.maxSpeed) * objSize, random(-this.maxSpeed, this.maxSpeed) * objSize);
+    }
+
+    render() {
+        let distanceFactor = (1 - (this.mouseDist / this.maxDist));
+
+        //Draw line towards cursor with opacity depending on distance to cursor
+        if (this.mouseDist <= this.maxDist) {
+            push();
+            strokeWeight(objSize * 0.05);
+            strokeCap(ROUND);
+            let lineColor = color(10, 113, 174, distanceFactor * 200);
+            stroke(lineColor);
+            line(this.pos.x, this.pos.y, mouseX, mouseY);
+            pop();
+        }
+
+        //Draw circle with size and opacity depending on distance to cursor
+        push();
+        let size = objSize * this.sizeMod * (distanceFactor + 1);
+        let ballColor = color(10, 113, 174, distanceFactor * 155 + 255);
+        fill(ballColor);
+        circle(this.pos.x, this.pos.y, size);
+        pop();
+    }
+}
+//===

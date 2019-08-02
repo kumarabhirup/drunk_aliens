@@ -117,6 +117,7 @@ class PlayButton {
     update() {
 
         //Resize button to fit text
+        this.btn.textSize = floor(objSize * 0.9);
         this.size = createVector(this.btn.textWidth * 1.5, this.btn.textSize * 3);
 
         if (this.size.y > width) {

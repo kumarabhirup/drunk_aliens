@@ -5,6 +5,8 @@ let gameBeginning = true; //Should be true only before the user starts the game 
 
 //===Game objects
 //Declare game objects here like player, enemies etc
+let nodes = [];
+
 
 //===Buttons
 let playButton;
@@ -27,6 +29,7 @@ let imgBackground;
 
 //===Audio
 let sndMusic;
+let sndTap;
 
 let soundEnabled = true;
 let canMute = true;
@@ -69,13 +72,17 @@ function preload() {
     soundImage = loadImage(Koji.config.images.soundImage);
     muteImage = loadImage(Koji.config.images.muteImage);
 
-    //===Load Sounds
-    sndMusic = loadSound(Koji.config.sounds.backgroundMusic);
+    //===Load Sounds here
+    //Include a simple IF check to make sure there is a sound in config, also include a check when you try to play the sound, so in case there isn't one, it will just be ignored instead of crashing the game
+    if (Koji.config.sounds.tap) sndTap = loadSound(Koji.config.sounds.tap);
+
+    //Music is loaded in setup(), to make it asynchronous
+
 
     //===Load settings from Game Settings
     startingLives = parseInt(Koji.config.strings.lives);
     lives = startingLives;
-    scoreGain = 1;
+    scoreGain = parseInt(Koji.config.strings.scoreGain);
 
 
 }
@@ -108,12 +115,44 @@ function setup() {
 
     gameBeginning = true;
 
-    //Remove comment if you want the music to start
-    //playMusic();
+
+    //Load music asynchronously and play once it's loaded
+    //This way the game will load faster
+    if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic, playMusic);
+
+
+
+}
+
+//Resizes canvas
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    //===How much of the screen should the game take, this should usually be left as it is
+    let sizeModifier = 0.75;
+    if (height > width) {
+        sizeModifier = 1;
+    }
+
+    //Magically determine basic object size depending on size of the screen
+    objSize = floor(min(floor(width / gameSize), floor(height / gameSize)) * sizeModifier);
 
 }
 
 function draw() {
+
+    //Manage cursor - show it on main menu, and hide during game, depending on game settings
+    if (!gameOver && !gameBeginning) {
+        if (!Koji.config.strings.enableCursor) {
+            noCursor();
+        }
+    }else{
+        cursor(ARROW);
+    }
+
 
     //Draw background or a solid color
     if (imgBackground) {
@@ -138,7 +177,7 @@ function draw() {
 
         fill(Koji.config.colors.titleColor);
         textAlign(CENTER, TOP);
-        text(Koji.config.strings.title, width / 2, objSize * 2);
+        text(Koji.config.strings.title, width / 2, objSize * 1.5);
 
         //===Draw instructions
         let instructionsText = [];
@@ -162,17 +201,17 @@ function draw() {
         textSize(instructionsSize[0]);
         fill(Koji.config.colors.instructionsColor);
         textAlign(CENTER, TOP);
-        text(instructionsText[0], width / 2, objSize * 6);
+        text(instructionsText[0], width / 2, objSize * 5);
 
         textSize(instructionsSize[1]);
         fill(Koji.config.colors.instructionsColor);
         textAlign(CENTER, TOP);
-        text(instructionsText[1], width / 2, objSize * 8);
+        text(instructionsText[1], width / 2, objSize * 7);
 
         textSize(instructionsSize[2]);
         fill(Koji.config.colors.instructionsColor);
         textAlign(CENTER, TOP);
-        text(instructionsText[2], width / 2, objSize * 10);
+        text(instructionsText[2], width / 2, objSize * 9);
 
 
         //===
@@ -201,8 +240,11 @@ function draw() {
         }
     } else {
 
-
         //Update and render all game objects here
+        for (let i = 0; i < nodes.length; i++) {
+            nodes[i].update();
+            nodes[i].render();
+        }
 
 
         //===Update all floating text objects
@@ -212,13 +254,6 @@ function draw() {
         }
 
         //===Ingame UI
-
-        //DELETE THIS
-        textSize(objSize * 1);
-        fill(Koji.config.colors.scoreColor);
-        textAlign(CENTER, CENTER);
-        text("Game happens here!\nClick anywhere to gain score!", width / 2, height / 2);
-
 
         //===Score draw
         let scoreX = width - objSize / 2;
@@ -270,10 +305,12 @@ function touchStarted() {
         touching = true;
 
 
-        //DELETE THIS
+        //EXAMPLE
+        if (sndTap) sndTap.play();
         score += scoreGain;
         floatingTexts.push(new FloatingText(mouseX, mouseY, scoreGain, Koji.config.colors.scoreColor, objSize));
-
+        checkHighscore();
+        //===
     }
 }
 
@@ -288,12 +325,41 @@ function touchEnded() {
     touching = false;
 }
 
+
+//Keyboard input
+/*
+For non-ASCII keys, use the keyCode variable. You can check if the keyCode equals:
+
+BACKSPACE, DELETE, ENTER, RETURN, TAB, ESCAPE, SHIFT, CONTROL, OPTION, ALT, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW.
+*/
+
 function keyPressed() {
     if (!gameOver && !gameBeginning) {
+        //Ingame
+        if (keyCode == UP_ARROW) {
+            console.log("up")
+        }
+        if (keyCode == DOWN_ARROW) {
+            console.log("down")
+        }
+        if (keyCode == LEFT_ARROW) {
+            console.log("left")
+        }
+        if (keyCode == RIGHT_ARROW) {
+            console.log("right")
+        }
 
+        if (key == ' ') {
+            console.log("Space")
+        }
+
+        if (key == 'p') {
+            console.log("Pressed: p")
+        }
     }
 }
 
+//Same usage as keyPressed, but is called on key released
 function keyReleased() {
     if (!gameOver && !gameBeginning) {
 
@@ -302,15 +368,36 @@ function keyReleased() {
 
 //===Call this every time you want to start or reset the game
 //This is a good place to clear all arrays like enemies, bullets etc before starting a new game
+//It gets called when you press the PLAY button
 function init() {
     gameOver = false;
-
     highscoreGained = false;
     score = 0;
+    lives = startingLives;
 
+    //Clear out all arrays
     floatingTexts = [];
 
+
+    //EXAMPLE
+    spawnNodes();
+    //===
+
 }
+
+//EXAMPLE
+function spawnNodes() {
+    let nodeCount = floor(random(100, 150));
+    for (let i = 0; i < nodeCount; i++) {
+        let x = random(0, width);
+        let y = random(0, height);
+        let node = new Node(x, y);
+        nodes.push(node);
+        node.changeVelocity();
+    }
+}
+//===
+
 
 //===Call this when a lose life event should trigger
 function loseLife() {
@@ -318,10 +405,8 @@ function loseLife() {
     lives--;
     if (lives <= 0) {
         gameOver = true;
-
         checkHighscore();
     }
-
 }
 
 

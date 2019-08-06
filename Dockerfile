@@ -9,7 +9,7 @@ COPY . .
 
 # Run the init script to get our working directory set up if it needs to be
 RUN chmod +x ./.remy/scripts/init.sh
-RUN ./.remy/scripts/init.sh https://github.com/madewithkoji/koji-p5-scaffold.git
+RUN ./.remy/scripts/init.sh https://projects.koji-cdn.com/b4acde8c-96d4-4b1e-9e6e-4cca208833fe.git
 
 # Run install commands if we have them
 RUN npm install --prefix .remy

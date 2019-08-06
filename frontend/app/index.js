@@ -6,6 +6,8 @@ let gameBeginning = true; //Should be true only before the user starts the game 
 //===Game objects
 //Declare game objects here like player, enemies etc
 let nodes = [];
+let draggables = [];
+let baseObjects = [];
 
 
 //===Buttons
@@ -26,6 +28,7 @@ let lives;
 //===Images
 let imgLife;
 let imgBackground;
+let imgDraggable = [];
 
 //===Audio
 let sndMusic;
@@ -48,6 +51,8 @@ let gameSize = 18;
 let isMobile = false;
 let touching = false; //Whether the user is currently touching/clicking
 
+let targetObject;
+
 //===This function is called before starting the game
 function preload() {
     //===Load font from google fonts link provided in game settings
@@ -68,6 +73,9 @@ function preload() {
     }
 
     imgLife = loadImage(Koji.config.images.lifeIcon);
+    imgDraggable[0] = loadImage(Koji.config.images.draggable1);
+    imgDraggable[1] = loadImage(Koji.config.images.draggable2);
+    imgDraggable[2] = loadImage(Koji.config.images.draggable3);
 
     soundImage = loadImage(Koji.config.images.soundImage);
     muteImage = loadImage(Koji.config.images.muteImage);
@@ -254,6 +262,44 @@ function draw() {
         }
 
         //===Ingame UI
+        //Update and render all game objects here
+        for(let i = 0; i < draggables.length; i++){
+            draggables[i].update();
+            draggables[i].render();
+
+            for(let j = 0; j < draggables.length; j++){
+                if(draggables[i] !== draggables[j] && draggables[i] !== targetObject && draggables[j] !== targetObject){
+                    if(draggables[i].collisionWith(draggables[j])){
+                        draggables[i].collided = true;
+                        draggables[i].goalSize = 0.01;
+                        draggables[j].collided = true;
+                        draggables[j].goalSize = 0.01;
+                    }
+                }
+            }
+        }
+
+
+         //Update and render all game objects here
+         for(let i = 0; i < baseObjects.length; i++){
+            baseObjects[i].render();
+        }
+
+        if(targetObject && touching){
+            //targetObject.pos.x = mouseX;
+            //targetObject.pos.y = mouseY;
+
+            targetObject.pos.x = Smooth(targetObject.pos.x, mouseX, 8);
+            targetObject.pos.y = Smooth(targetObject.pos.y, mouseY, 8);
+        }
+
+        //===Update all floating text objects
+        for (let i = 0; i < floatingTexts.length; i++) {
+            floatingTexts[i].update();
+            floatingTexts[i].render();
+        }
+
+        //===Ingame UI
 
         //===Score draw
         let scoreX = width - objSize / 2;
@@ -285,10 +331,16 @@ function cleanup() {
             floatingTexts.splice(i, 1);
         }
     }
+
+    for(let i = 0; i < draggables.length; i++){
+        if(draggables[i].removable){
+            draggables.splice(i, 1);
+            console.log("Removed")
+        }
+    }
 }
 
 
-//===Handle input
 function touchStarted() {
 
     if (gameOver || gameBeginning) {
@@ -304,13 +356,30 @@ function touchStarted() {
         //Ingame
         touching = true;
 
+        // for(let i = 0; i < draggables.length; i++){
+            
+        // }
 
-        //EXAMPLE
-        if (sndTap) sndTap.play();
-        score += scoreGain;
-        floatingTexts.push(new FloatingText(mouseX, mouseY, scoreGain, Koji.config.colors.scoreColor, objSize));
-        checkHighscore();
-        //===
+        for(obj of baseObjects){
+            if(obj.checkClick()){
+
+                clearDraggable();
+
+                let newObj = draggables.push(new Draggable(mouseX, mouseY, obj.type));
+                
+                targetObject = newObj;
+            }
+        }
+        
+        for (let i = draggables.length - 1; i >= 0; --i) {
+            if(draggables[i].checkClick()){
+                targetObject = draggables[i];
+                targetObject.goalSize = targetObject.defaultSize * 1.5;
+                break;
+
+            }
+        }
+
     }
 }
 
@@ -322,7 +391,22 @@ function touchEnded() {
         }
     }
 
+    if (!gameOver && !gameBeginning) {
+
+        clearDraggable();
+
+    }
+
     touching = false;
+}
+
+function clearDraggable(){
+    for (draggable of draggables) {
+        if(draggable === targetObject){
+            draggable.goalSize = draggable.defaultSize;
+            targetObject = null;
+        }
+    }
 }
 
 
@@ -378,11 +462,25 @@ function init() {
     //Clear out all arrays
     floatingTexts = [];
 
+    SpawnBaseObjects();
+    SpawnDraggable();
+
 
     //EXAMPLE
     spawnNodes();
     //===
 
+}
+
+function SpawnBaseObjects() {
+    baseObjects.push(new BaseObject(objSize * 4, objSize * 4, 0));
+    baseObjects.push(new BaseObject(objSize * 4, objSize * 8, 1));
+    baseObjects.push(new BaseObject(objSize * 4, objSize * 12, 2));
+}
+
+function SpawnDraggable(){
+    draggables.push(new Draggable(width/2 - objSize * 10, height/2, 0));
+    draggables.push(new Draggable(width/2 + objSize * 10, height/2, 0));
 }
 
 //EXAMPLE

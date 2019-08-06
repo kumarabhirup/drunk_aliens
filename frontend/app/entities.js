@@ -59,6 +59,13 @@ class Entity {
         }
     }
 
+     checkClick(){
+        return (mouseX > this.pos.x - this.sizeMod * objSize / 2
+        && mouseX < this.pos.x + this.sizeMod * objSize /2
+        && mouseY > this.pos.y - this.sizeMod * objSize / 2
+        && mouseY < this.pos.y + this.sizeMod * objSize /2);
+    }
+
 }
 
 //EXAMPLE
@@ -114,3 +121,82 @@ class Node {
     }
 }
 //===
+
+class BaseObject extends Entity {
+    constructor(x,y, type){
+        super(x,y);
+
+        this.type = type;
+
+        this.img = imgDraggable[type];
+       
+        this.sizeMod = 3;
+
+    }
+}
+
+class Draggable extends Entity{
+    constructor(x, y, type){
+        super(x, y);
+
+        this.img = imgDraggable[type];
+        this.defaultSize = 2;
+        this.goalSize = this.defaultSize;
+        this.sizeMod = 0.1;
+
+        this.goalVelocity = createVector(0, 0);
+        this.velocity = createVector(0, 0);
+
+        this.moveSpeed = 2;
+        this.moveTimer = 2;
+        this.collided = false;
+
+    }
+
+    update(){
+        
+        if(this.collided){
+            this.sizeMod = Smooth(this.sizeMod, this.goalSize, 2);
+
+            if(this.sizeMod < 0.1){
+                this.removable = true;
+            }
+        }else{
+            this.sizeMod = Smooth(this.sizeMod, this.goalSize, 4);
+        }
+        
+
+        //this.pos.x += this.velocity.x;
+        //this.pos.y += this.velocity.y;
+
+        this.moveTimer -= 1 / frameRate();
+
+        if(this.moveTimer <= 0){
+            this.goalVelocity.x = random(-this.moveSpeed, this.moveSpeed);
+            this.goalVelocity.y = random(-this.moveSpeed, this.moveSpeed);
+
+            this.moveTimer = 2;
+        }
+
+        this.velocity.x = Smooth(this.velocity.x, this.goalVelocity.x, 8);
+        this.velocity.y = Smooth(this.velocity.y, this.goalVelocity.y, 8);
+
+        
+
+        this.pos.add(this.velocity);
+
+        if(this.checkEdges()){
+            this.removable = true;
+        }
+
+    }
+
+    checkEdges(){
+        return (this.pos.x > width + objSize * 5
+            || this.pos.x <  -objSize * 5
+            || this.pos.y > height  + objSize * 5
+            || this.pos.y < -objSize * 5);
+    }
+
+    
+}

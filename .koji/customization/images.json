@@ -3,40 +3,58 @@
     "soundImage": "https://i.imgur.com/rtFppa8.png",
     "muteImage": "https://i.imgur.com/AR7C733.png",
     "lifeIcon": "https://i.imgur.com/SKksWaw.png",
-    "background": ""
+    "background": "",
+    "draggable1": "https://i.imgur.com/yEE45B1.png",
+    "draggable2": "https://i.imgur.com/h0m2rpK.png",
+    "draggable3": "https://i.imgur.com/znfntxQ.png"
   },
-  "@@editor": [
-    {
-      "key": "images",
-      "name": "Images",
-      "icon": "💪🏻",
-      "source": "images.json",
-      "fields": [
-        {
-          "key": "soundImage",
-          "name": "Sound Icon",
-          "description": "Ideal size: 32x32",
-          "type": "image"
-        },
-        {
-          "key": "muteImage",
-          "name": "Mute Icon",
-          "description": "Ideal size: 32x32",
-          "type": "image"
-        },
-        {
-          "key": "lifeIcon",
-          "name": "Life Icon",
-          "description": "Ideal size: 96x96",
-          "type": "image"
-        },
-        {
-          "key": "background",
-          "name": "Background",
-          "description": "Leave empty if you want to use a solid color. Ideal size: any, but keep in mind it could deform based on screen size",
-          "type": "image"
-        }
-      ]
-    }
-  ]
+  "@@editor": [{
+    "key": "images",
+    "name": "Images",
+    "icon": "💪🏻",
+    "source": "images.json",
+    "fields": [{
+        "key": "soundImage",
+        "name": "Sound Icon",
+        "description": "Ideal size: 32x32",
+        "type": "image"
+      },
+      {
+        "key": "muteImage",
+        "name": "Mute Icon",
+        "description": "Ideal size: 32x32",
+        "type": "image"
+      },
+      {
+        "key": "lifeIcon",
+        "name": "Life Icon",
+        "description": "Ideal size: 96x96",
+        "type": "image"
+      },
+      {
+        "key": "background",
+        "name": "Background",
+        "description": "Leave empty if you want to use a solid color. Ideal size: any, but keep in mind it could deform based on screen size",
+        "type": "image"
+      },
+      {
+        "key": "draggable1",
+        "name": "Draggable Object 1",
+        "description": "Ideal size: 256x256",
+        "type": "image"
+      },
+      {
+        "key": "draggable2",
+        "name": "Draggable Object 2",
+        "description": "Ideal size: 256x256",
+        "type": "image"
+      },
+      {
+        "key": "draggable3",
+        "name": "Draggable Object 3",
+        "description": "Ideal size: 256x256",
+        "type": "image"
+      }
+    ]
+  }]
 }

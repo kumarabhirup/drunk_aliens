@@ -147,7 +147,7 @@ class Draggable extends Entity{
         this.goalVelocity = createVector(0, 0);
         this.velocity = createVector(0, 0);
 
-        this.moveSpeed = 2;
+        this.moveSpeed = 0.75;
         this.moveTimer = 2;
         this.collided = false;
 
@@ -187,6 +187,7 @@ class Draggable extends Entity{
 
         if(this.checkEdges()){
             this.removable = true;
+            // loseLife()
         }
 
     }

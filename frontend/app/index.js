@@ -261,6 +261,8 @@ function draw() {
             floatingTexts[i].render();
         }
 
+        // increaseScore()
+
         //===Ingame UI
         //Update and render all game objects here
         for(let i = 0; i < draggables.length; i++){
@@ -280,10 +282,10 @@ function draw() {
         }
 
 
-         //Update and render all game objects here
-         for(let i = 0; i < baseObjects.length; i++){
-            baseObjects[i].render();
-        }
+        //  //Update and render all game objects here
+        //  for(let i = 0; i < baseObjects.length; i++){
+        //     baseObjects[i].render();
+        // }
 
         if(targetObject && touching){
             //targetObject.pos.x = mouseX;
@@ -335,7 +337,7 @@ function cleanup() {
     for(let i = 0; i < draggables.length; i++){
         if(draggables[i].removable){
             draggables.splice(i, 1);
-            console.log("Removed")
+            console.log("Removed");
         }
     }
 }
@@ -355,10 +357,6 @@ function touchStarted() {
     if (!gameOver && !gameBeginning) {
         //Ingame
         touching = true;
-
-        // for(let i = 0; i < draggables.length; i++){
-            
-        // }
 
         for(obj of baseObjects){
             if(obj.checkClick()){
@@ -458,11 +456,13 @@ function init() {
     highscoreGained = false;
     score = 0;
     lives = startingLives;
+    draggables = [];
+    baseObjects = [];
 
     //Clear out all arrays
     floatingTexts = [];
 
-    SpawnBaseObjects();
+    // SpawnBaseObjects();
     SpawnDraggable();
 
 
@@ -479,9 +479,19 @@ function SpawnBaseObjects() {
 }
 
 function SpawnDraggable(){
-    draggables.push(new Draggable(width/2 - objSize * 10, height/2, 0));
-    draggables.push(new Draggable(width/2 + objSize * 10, height/2, 0));
+    let howManyDraggables = parseInt(Koji.config.strings.numberOfDraggables)
+    let consideredNumberOfDraggables = (howManyDraggables < 2 || howManyDraggables > 6)
+                                       ? 4 : howManyDraggables
+    for (let i = 0; i < consideredNumberOfDraggables; i++) {
+        draggables.push(new Draggable((i * objSize * 5) + width / consideredNumberOfDraggables, height / 2, i % 3))
+    }
 }
+
+// function increaseScore() {
+//     setTimeout(() => {
+//         score++
+//     }, 500)
+// }
 
 //EXAMPLE
 function spawnNodes() {

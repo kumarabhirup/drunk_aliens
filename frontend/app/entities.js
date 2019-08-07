@@ -1,4 +1,3 @@
-
 /*
     Base entity class, can be used as a base for other drawable objects, used for drawing and checking basic collisions
 
@@ -36,7 +35,6 @@ class Entity {
         this.scale = createVector(1, 1);
     }
 
-
     render() {
         let size = objSize * this.sizeMod;
 
@@ -65,7 +63,6 @@ class Entity {
         && mouseY > this.pos.y - this.sizeMod * objSize / 2
         && mouseY < this.pos.y + this.sizeMod * objSize /2);
     }
-
 }
 
 //EXAMPLE
@@ -131,7 +128,6 @@ class BaseObject extends Entity {
         this.img = imgDraggable[type];
        
         this.sizeMod = 3;
-
     }
 }
 
@@ -150,25 +146,18 @@ class Draggable extends Entity{
         this.moveSpeed = 1;
         this.moveTimer = 2;
         this.collided = false;
-
     }
 
     update(){
-        
         if(this.collided){
             this.sizeMod = Smooth(this.sizeMod, this.goalSize, 2);
 
             if(this.sizeMod < 0.1){
                 this.removable = true;
-                // losingLife = true;
             }
-        }else{
+        } else{
             this.sizeMod = Smooth(this.sizeMod, this.goalSize, 4);
         }
-        
-
-        //this.pos.x += this.velocity.x;
-        //this.pos.y += this.velocity.y;
 
         this.moveTimer -= 1 / frameRate();
 
@@ -182,15 +171,12 @@ class Draggable extends Entity{
         this.velocity.x = Smooth(this.velocity.x, this.goalVelocity.x, 8);
         this.velocity.y = Smooth(this.velocity.y, this.goalVelocity.y, 8);
 
-        
-
         this.pos.add(this.velocity);
 
         if(this.checkEdges()){
             this.removable = true;
             loseLife();
         }
-
     }
 
     checkEdges(){
@@ -198,7 +184,5 @@ class Draggable extends Entity{
             || this.pos.x <  -objSize * 2
             || this.pos.y > height  + objSize * 2
             || this.pos.y < -objSize * 2);
-    }
-
-    
+    } 
 }

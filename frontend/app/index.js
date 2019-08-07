@@ -9,11 +9,9 @@ let nodes = [];
 let draggables = [];
 let baseObjects = [];
 
-
 //===Buttons
 let playButton;
 let soundButton;
-
 
 //===Score data
 let score = 0;
@@ -42,7 +40,6 @@ let canMute = true;
 
 let soundImage;
 let muteImage;
-
 
 //===Size stuff
 let objSize; //base size modifier of all objects, calculated based on screen size
@@ -94,9 +91,8 @@ function preload() {
     startingLives = parseInt(Koji.config.strings.lives);
     lives = startingLives;
     scoreGain = parseInt(Koji.config.strings.scoreGain);
-
-
 }
+
 function setup() {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -129,10 +125,7 @@ function setup() {
 
     //Load music asynchronously and play once it's loaded
     //This way the game will load faster
-    // if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic, playMusic);
-
-
-
+    if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic, playMusic);
 }
 
 //Resizes canvas
@@ -160,7 +153,7 @@ function draw() {
         if (!Koji.config.strings.enableCursor) {
             noCursor();
         }
-    }else{
+    } else{
         cursor(ARROW);
     }
 
@@ -257,7 +250,6 @@ function draw() {
             nodes[i].render();
         }
 
-
         //===Update all floating text objects
         for (let i = 0; i < floatingTexts.length; i++) {
             floatingTexts[i].update();
@@ -265,19 +257,11 @@ function draw() {
         }
 
         if (lives > 0) { increaseScore() }
-        if (losingLife === 2) { 
-            console.log('Lost!')
+        if (losingLife === 2) {
             losingLife = 1
             loseLife() 
         }
-        losingLife = 1 // 0 is nothing, 1 is present, 2 is lost
-
-        // wrapConsole.js:34 2
-        // wrapConsole.js:34 swithcing to 1
-        // wrapConsole.js:34 1
-        // wrapConsole.js:34 2
-        // wrapConsole.js:34 swithcing to 1
-        // wrapConsole.js:34 1
+        losingLife = 1
 
         //===Ingame UI
         //Update and render all game objects here
@@ -293,14 +277,10 @@ function draw() {
                         draggables[j].collided = true;
                         draggables[j].goalSize = 0.01;
                         if (losingLife === 2) {
-                            console.log('swithcing to 1')
                             losingLife = 1;
                         } else {
                             losingLife++;
                         }
-                        console.log(losingLife)
-                        // loseLife()
-                        // console.log('💩' + i + j)
                     }
                 }
             }
@@ -311,15 +291,7 @@ function draw() {
             loseLife()
         }
 
-        //  //Update and render all game objects here
-        //  for(let i = 0; i < baseObjects.length; i++){
-        //     baseObjects[i].render();
-        // }
-
         if(targetObject && touching){
-            //targetObject.pos.x = mouseX;
-            //targetObject.pos.y = mouseY;
-
             targetObject.pos.x = Smooth(targetObject.pos.x, mouseX, 8);
             targetObject.pos.y = Smooth(targetObject.pos.y, mouseY, 8);
         }
@@ -331,7 +303,6 @@ function draw() {
         }
 
         //===Ingame UI
-
         //===Score draw
         let scoreX = width - objSize / 2;
         let scoreY = objSize / 3;

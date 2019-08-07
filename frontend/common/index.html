@@ -26,31 +26,31 @@
 	<script async src='https://www.google-analytics.com/analytics.js'>
 
 	</script>
-	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js">
+	<script language="javascript" type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js">
 
 	</script>
 	<!-- If you want to add any P5 Libraries, paste them in below -->
-	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js">
+	<script language="javascript" type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js">
 
 	</script>
-	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js">
+	<script language="javascript" type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js">
 
 	</script>
 	<!-- End P5 Library Section -->
-
-
-
 
 </head>
 
 <!--Disable touch zooming, mobile scrolling, and right click on desktop-->
 
-<body id="root" style="background-color: #171717; touch-action: none; overflow: hidden; overscroll-behavior-y: contain; position: fixed; margin: 0; padding: 0; min-height: 100vh; width: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;"
- oncontextmenu="return false">
+<body id="root"
+	style="background-color: #171717; touch-action: none; overflow: hidden; overscroll-behavior-y: contain; position: fixed; margin: 0; padding: 0; min-height: 100vh; width: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;"
+	oncontextmenu="return false">
 	<noscript>You need to enable JavaScript to run this app.</noscript>
 
 	<style type="text/css">
-
 		* {
 			margin: 0;
 			padding: 0;
@@ -92,24 +92,33 @@
 			0% {
 				transform: rotate(0deg);
 			}
+
 			100% {
 				transform: rotate(360deg);
 			}
 		}
 	</style>
 
-	<div id="p5_loading" style="display: flex; margin-top: 20vh; justify-content: center; text-align: center; animation-name: logo; animation-duration: 2s; animation-iteration-count: infinite; animation-timing-function: ease-out;"
-	 class="">
-		<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+	<div id="p5_loading"
+		style="display: flex; margin-top: 20vh; justify-content: center; text-align: center; animation-name: logo; animation-duration: 2s; animation-iteration-count: infinite; animation-timing-function: ease-out;"
+		class="">
+		<div class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
 </body>
 
 <footer>
 	<!-- Prevent mobile scrolling/refreshing -->
 	<script>
-		document.addEventListener('touchmove', function(e) {
-      e.preventDefault();
-    }, { passive: false });
+		document.addEventListener('touchmove', function (e) {
+			e.preventDefault();
+		}, {
+			passive: false
+		});
 	</script>
 </footer>
 

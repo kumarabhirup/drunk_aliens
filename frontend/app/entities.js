@@ -52,7 +52,7 @@ class Entity {
     collisionWith(other) {
         let distCheck = (objSize * this.sizeMod + objSize * other.sizeMod) / 2;
 
-        if (dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) < distCheck) {
+        if (dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) <= distCheck) {
             return true;
         } else {
             return false;
@@ -147,7 +147,7 @@ class Draggable extends Entity{
         this.goalVelocity = createVector(0, 0);
         this.velocity = createVector(0, 0);
 
-        this.moveSpeed = 0.75;
+        this.moveSpeed = 1;
         this.moveTimer = 2;
         this.collided = false;
 
@@ -160,6 +160,7 @@ class Draggable extends Entity{
 
             if(this.sizeMod < 0.1){
                 this.removable = true;
+                // losingLife = true;
             }
         }else{
             this.sizeMod = Smooth(this.sizeMod, this.goalSize, 4);
@@ -187,16 +188,16 @@ class Draggable extends Entity{
 
         if(this.checkEdges()){
             this.removable = true;
-            // loseLife()
+            loseLife();
         }
 
     }
 
     checkEdges(){
-        return (this.pos.x > width + objSize * 5
-            || this.pos.x <  -objSize * 5
-            || this.pos.y > height  + objSize * 5
-            || this.pos.y < -objSize * 5);
+        return (this.pos.x > width + objSize * 2
+            || this.pos.x <  -objSize * 2
+            || this.pos.y > height  + objSize * 2
+            || this.pos.y < -objSize * 2);
     }
 
     

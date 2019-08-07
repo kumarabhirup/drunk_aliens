@@ -17,6 +17,7 @@ let soundButton;
 
 //===Score data
 let score = 0;
+let hiddenScore = 0;
 let highScore = 0;
 let highscoreGained = false;
 let scoreGain;
@@ -24,6 +25,8 @@ let scoreGain;
 //===Data taken from Game Settings
 let startingLives;
 let lives;
+
+let losingLife = 0;
 
 //===Images
 let imgLife;
@@ -126,7 +129,7 @@ function setup() {
 
     //Load music asynchronously and play once it's loaded
     //This way the game will load faster
-    if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic, playMusic);
+    // if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic, playMusic);
 
 
 
@@ -261,7 +264,20 @@ function draw() {
             floatingTexts[i].render();
         }
 
-        // increaseScore()
+        if (lives > 0) { increaseScore() }
+        if (losingLife === 2) { 
+            console.log('Lost!')
+            losingLife = 1
+            loseLife() 
+        }
+        losingLife = 1 // 0 is nothing, 1 is present, 2 is lost
+
+        // wrapConsole.js:34 2
+        // wrapConsole.js:34 swithcing to 1
+        // wrapConsole.js:34 1
+        // wrapConsole.js:34 2
+        // wrapConsole.js:34 swithcing to 1
+        // wrapConsole.js:34 1
 
         //===Ingame UI
         //Update and render all game objects here
@@ -276,11 +292,24 @@ function draw() {
                         draggables[i].goalSize = 0.01;
                         draggables[j].collided = true;
                         draggables[j].goalSize = 0.01;
+                        if (losingLife === 2) {
+                            console.log('swithcing to 1')
+                            losingLife = 1;
+                        } else {
+                            losingLife++;
+                        }
+                        console.log(losingLife)
+                        // loseLife()
+                        // console.log('💩' + i + j)
                     }
                 }
             }
         }
 
+        // if no collidable draggables, lose life
+        if (draggables.length < 2) {
+            loseLife()
+        }
 
         //  //Update and render all game objects here
         //  for(let i = 0; i < baseObjects.length; i++){
@@ -337,7 +366,7 @@ function cleanup() {
     for(let i = 0; i < draggables.length; i++){
         if(draggables[i].removable){
             draggables.splice(i, 1);
-            console.log("Removed");
+            // console.log("Removed");
         }
     }
 }
@@ -401,6 +430,7 @@ function touchEnded() {
 function clearDraggable(){
     for (draggable of draggables) {
         if(draggable === targetObject){
+            // when mouse left
             draggable.goalSize = draggable.defaultSize;
             targetObject = null;
         }
@@ -487,11 +517,10 @@ function SpawnDraggable(){
     }
 }
 
-// function increaseScore() {
-//     setTimeout(() => {
-//         score++
-//     }, 500)
-// }
+function increaseScore() {
+    hiddenScore += 0.01
+    score = Math.floor(hiddenScore)
+}
 
 //EXAMPLE
 function spawnNodes() {
@@ -509,7 +538,6 @@ function spawnNodes() {
 
 //===Call this when a lose life event should trigger
 function loseLife() {
-
     lives--;
     if (lives <= 0) {
         gameOver = true;

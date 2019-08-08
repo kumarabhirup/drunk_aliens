@@ -23,6 +23,7 @@ let scoreGain;
 //===Data taken from Game Settings
 let startingLives;
 let lives;
+let consideredNumberOfDraggables;
 
 let losingLife = 0;
 
@@ -263,6 +264,10 @@ function draw() {
         }
         losingLife = 1
 
+        if (draggables.length < parseInt(Koji.config.strings.numberOfDraggables)) {
+            draggables.push(new Draggable( objSize + random(100, width - 100), objSize + random(100, height - 100), Math.floor(random(0, 3)) ));
+        }
+
         //===Ingame UI
         //Update and render all game objects here
         for(let i = 0; i < draggables.length; i++){
@@ -270,8 +275,8 @@ function draw() {
             draggables[i].render();
 
             for(let j = 0; j < draggables.length; j++){
-                if(draggables[i] !== draggables[j] && draggables[i] !== targetObject && draggables[j] !== targetObject){
-                    if(draggables[i].collisionWith(draggables[j])){
+                if (draggables[i] !== draggables[j] && draggables[i] !== targetObject && draggables[j] !== targetObject){
+                    if (draggables[i].collisionWith(draggables[j])){
                         draggables[i].collided = true;
                         draggables[i].goalSize = 0.01;
                         draggables[j].collided = true;
@@ -374,7 +379,6 @@ function touchStarted() {
                 targetObject = draggables[i];
                 targetObject.goalSize = targetObject.defaultSize * 1.5;
                 break;
-
             }
         }
 
@@ -479,10 +483,16 @@ function SpawnBaseObjects() {
     baseObjects.push(new BaseObject(objSize * 4, objSize * 12, 2));
 }
 
-function SpawnDraggable(){
+function SpawnDraggable(howMany = 0){
     let howManyDraggables = parseInt(Koji.config.strings.numberOfDraggables)
-    let consideredNumberOfDraggables = (howManyDraggables < 2 || howManyDraggables > 6)
-                                       ? 4 : howManyDraggables
+    const howManyToBeConsidered = () => {
+        if (howMany === 0) {
+            return howManyDraggables
+        } else {
+            return howMany
+        }
+    }
+    consideredNumberOfDraggables = howManyToBeConsidered()
     for (let i = 0; i < consideredNumberOfDraggables; i++) {
         draggables.push(new Draggable((i * objSize * 5) + width / consideredNumberOfDraggables, height / 2, i % 3))
     }

@@ -175,6 +175,7 @@ class Draggable extends Entity{
 
         if(this.checkEdges()){
             this.removable = true;
+            draggables.push(new Draggable( objSize + random(100, width - 100), objSize + random(100, height - 100), Math.floor(random(0, 3)) ));
             loseLife();
         }
     }

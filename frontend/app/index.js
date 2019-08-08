@@ -460,6 +460,7 @@ function init() {
     gameOver = false;
     highscoreGained = false;
     score = 0;
+    hiddenScore = 0;
     lives = startingLives;
     draggables = [];
     baseObjects = [];

@@ -501,7 +501,8 @@ function SpawnDraggable(howMany = 0){
     consideredNumberOfDraggables = howManyToBeConsidered()
     for (let i = 0; i < consideredNumberOfDraggables; i++) {
         if (isMobile) {
-            draggables.push(new Draggable((i * objSize * 4) + width / consideredNumberOfDraggables, (i * objSize * 3) + height / consideredNumberOfDraggables, i % 3))
+            // draggables.push(new Draggable((i * objSize * 4) + width / consideredNumberOfDraggables, (i * objSize * 3) + height / consideredNumberOfDraggables, i % 3))
+            draggables.push(new Draggable(objSize + random(100, width - 100), objSize + random(100, height - 100), i % 3));
         } else {
             draggables.push(new Draggable((i * objSize * 5) + width / consideredNumberOfDraggables, height / 2, i % 3))
         }

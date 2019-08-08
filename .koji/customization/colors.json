@@ -2,6 +2,7 @@
   "colors": {
     "backgroundColor": "#01131D",
     "textColor": "#ffffff",
+    "floatingTextColor": "#FFFF00",
     "playButtonTextColor": "#01131D",
     "playButtonColor": "#75C4F2",
     "scoreColor": "#FFDA73",
@@ -11,59 +12,61 @@
     "playButtonHoverColor": "#396782",
     "playButtonClickColor": "#EFF3F5"
   },
-  "@@editor": [
-    {
-      "key": "colors",
-      "name": "Colors",
-      "icon": "🎨",
-      "source": "colors.json",
-      "fields": [
-        {
-          "key": "backgroundColor",
-          "name": "Background color",
-          "type": "color"
-        },
-        {
-          "key": "titleColor",
-          "name": "Game Title Color",
-          "type": "color"
-        },
-        {
-          "key": "instructionsColor",
-          "name": "Game Instructions Color",
-          "type": "color"
-        },
-        {
-          "key": "scoreColor",
-          "name": "Score color",
-          "type": "color"
-        },
-        {
-          "key": "highscoreColor",
-          "name": "High Score color",
-          "type": "color"
-        },
-        {
-          "key": "playButtonTextColor",
-          "name": "Play Button Text Color",
-          "type": "color"
-        },
-        {
-          "key": "playButtonColor",
-          "name": "Play Button Color",
-          "type": "color"
-        },
-        {
-          "key": "playButtonHoverColor",
-          "name": "Play Button Hover Color",
-          "type": "color"
-        },
-        {
-          "key": "playButtonClickColor",
-          "name": "Play Button Click Color",
-          "type": "color"
-        }
-      ]
-    }
-  ]
+  "@@editor": [{
+    "key": "colors",
+    "name": "Colors",
+    "icon": "🎨",
+    "source": "colors.json",
+    "fields": [{
+        "key": "backgroundColor",
+        "name": "Background color",
+        "type": "color"
+      },
+      {
+        "key": "floatingTextColor",
+        "name": "Color of the floating text",
+        "type": "color"
+      },
+      {
+        "key": "titleColor",
+        "name": "Game Title Color",
+        "type": "color"
+      },
+      {
+        "key": "instructionsColor",
+        "name": "Game Instructions Color",
+        "type": "color"
+      },
+      {
+        "key": "scoreColor",
+        "name": "Score color",
+        "type": "color"
+      },
+      {
+        "key": "highscoreColor",
+        "name": "High Score color",
+        "type": "color"
+      },
+      {
+        "key": "playButtonTextColor",
+        "name": "Play Button Text Color",
+        "type": "color"
+      },
+      {
+        "key": "playButtonColor",
+        "name": "Play Button Color",
+        "type": "color"
+      },
+      {
+        "key": "playButtonHoverColor",
+        "name": "Play Button Hover Color",
+        "type": "color"
+      },
+      {
+        "key": "playButtonClickColor",
+        "name": "Play Button Click Color",
+        "type": "color"
+      }
+    ]
+  }]
 }

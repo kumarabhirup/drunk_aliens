@@ -175,6 +175,7 @@ class Draggable extends Entity{
 
         if(this.checkEdges()){
             this.removable = true;
+            floatingTexts.push(new FloatingText(width / 2, height / 2, Koji.config.strings.lostText, Koji.config.colors.floatingTextColor, objSize * 1.5, 2.4));
             draggables.push(new Draggable( objSize + random(100, width - 100), objSize + random(100, height - 100), Math.floor(random(0, 3)) ));
             loseLife();
         }

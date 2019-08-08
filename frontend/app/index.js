@@ -8,6 +8,7 @@ let gameBeginning = true; //Should be true only before the user starts the game 
 let nodes = [];
 let draggables = [];
 let baseObjects = [];
+let floatingTexts = [];
 
 //===Buttons
 let playButton;
@@ -283,6 +284,7 @@ function draw() {
                             draggables[i].goalSize = 0.01;
                             draggables[j].collided = true;
                             draggables[j].goalSize = 0.01;
+                            floatingTexts.push(new FloatingText(draggables[i].pos.x, draggables[j].pos.y, Koji.config.strings.collidedText, Koji.config.colors.floatingTextColor, objSize * 3));
                             if (losingLife === 2) {
                                 losingLife = 1;
                             } else {
@@ -488,6 +490,7 @@ function SpawnBaseObjects() {
 }
 
 function SpawnDraggable(howMany = 0){
+    floatingTexts.push(new FloatingText(width / 2, height - objSize * 3, Koji.config.strings.gamePlayText, Koji.config.colors.floatingTextColor, objSize * 1.3, 5))
     const howManyToBeConsidered = () => {
         if (howMany === 0) {
             return howManyDraggables
@@ -537,11 +540,11 @@ function loseLife() {
 //===The way to use Floating Text:
 //floatingTexts.push(new FloatingText(...));
 //Everything else like drawing, removing it after it's done etc, will be done automatically
-function FloatingText(x, y, txt, color, size) {
+function FloatingText(x, y, txt, color, size, timer = 1) {
     this.pos = createVector(x, y);
     this.size = 1;
     this.maxSize = size;
-    this.timer = 1;
+    this.timer = timer;
     this.txt = txt;
     this.color = color;
 

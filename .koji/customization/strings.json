@@ -1,8 +1,11 @@
 {
   "strings": {
     "numberOfDraggables": "6",
+    "gamePlayText": "Drag those apart, fast!",
+    "collidedText": "🔥",
+    "lostText": "YOU LOST A SHIP!",
     "fontFamily": "https://fonts.googleapis.com/css?family=Russo+One",
-    "title": "Random Movers",
+    "title": "👽 Drunk Aliens 🚀",
     "instructions1": "The aliens in the Space are Drunk 🍺",
     "instructions2": "When they collide, you lose a life.",
     "instructions3": "Avoid their collision - DRAG THEM AWAY!",
@@ -26,6 +29,24 @@
         "key": "numberOfDraggables",
         "name": "Number of Draggables",
         "description": "How many draggables should spawn in the start of the game? Min 2 Max 6",
+        "type": "text"
+      },
+      {
+        "key": "gamePlayText",
+        "name": "Game Play Text",
+        "description": "The floating text to show when game just starts",
+        "type": "text"
+      },
+      {
+        "key": "collidedText",
+        "name": "Collision Text",
+        "description": "The floating text to show when collision occurs",
+        "type": "text"
+      },
+      {
+        "key": "lostText",
+        "name": "Lost Text",
+        "description": "The floating text to show when spaceship gets lost",
         "type": "text"
       },
       {

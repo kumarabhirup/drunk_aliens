@@ -24,6 +24,7 @@ let scoreGain;
 let startingLives;
 let lives;
 let consideredNumberOfDraggables;
+let howManyDraggables;
 
 let losingLife = 0;
 
@@ -110,6 +111,7 @@ function setup() {
     objSize = floor(min(floor(width / gameSize), floor(height / gameSize)) * sizeModifier);
 
     isMobile = detectMobile();
+    howManyDraggables = !isMobile ? parseInt(Koji.config.strings.numberOfDraggables) : 4;
 
     //===Get high score data from local storage
     if (localStorage.getItem("highscore")) {
@@ -122,7 +124,6 @@ function setup() {
     soundButton = new SoundButton();
 
     gameBeginning = true;
-
 
     //Load music asynchronously and play once it's loaded
     //This way the game will load faster
@@ -264,7 +265,7 @@ function draw() {
         }
         losingLife = 1
 
-        if (draggables.length < parseInt(Koji.config.strings.numberOfDraggables)) {
+        if (draggables.length < howManyDraggables) {
             draggables.push(new Draggable( objSize + random(100, width - 100), objSize + random(100, height - 100), Math.floor(random(0, 3)) ));
         }
 
@@ -277,14 +278,16 @@ function draw() {
             for(let j = 0; j < draggables.length; j++){
                 if (draggables[i] !== draggables[j] && draggables[i] !== targetObject && draggables[j] !== targetObject){
                     if (draggables[i].collisionWith(draggables[j])){
-                        draggables[i].collided = true;
-                        draggables[i].goalSize = 0.01;
-                        draggables[j].collided = true;
-                        draggables[j].goalSize = 0.01;
-                        if (losingLife === 2) {
-                            losingLife = 1;
-                        } else {
-                            losingLife++;
+                        if (draggables[i].moveTimer < 1 || draggables[j].moveTimer < 1) {
+                            draggables[i].collided = true;
+                            draggables[i].goalSize = 0.01;
+                            draggables[j].collided = true;
+                            draggables[j].goalSize = 0.01;
+                            if (losingLife === 2) {
+                                losingLife = 1;
+                            } else {
+                                losingLife++;
+                            }
                         }
                     }
                 }
@@ -485,7 +488,6 @@ function SpawnBaseObjects() {
 }
 
 function SpawnDraggable(howMany = 0){
-    let howManyDraggables = parseInt(Koji.config.strings.numberOfDraggables)
     const howManyToBeConsidered = () => {
         if (howMany === 0) {
             return howManyDraggables
@@ -495,7 +497,11 @@ function SpawnDraggable(howMany = 0){
     }
     consideredNumberOfDraggables = howManyToBeConsidered()
     for (let i = 0; i < consideredNumberOfDraggables; i++) {
-        draggables.push(new Draggable((i * objSize * 5) + width / consideredNumberOfDraggables, height / 2, i % 3))
+        if (isMobile) {
+            draggables.push(new Draggable((i * objSize * 4) + width / consideredNumberOfDraggables, (i * objSize * 3) + height / consideredNumberOfDraggables, i % 3))
+        } else {
+            draggables.push(new Draggable((i * objSize * 5) + width / consideredNumberOfDraggables, height / 2, i % 3))
+        }
     }
 }
 

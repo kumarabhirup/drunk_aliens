@@ -1,81 +1,87 @@
-# Basic Game Template
+# `👽 Drunk Aliens 🚀 Keep them away!! 🍺`
 
-- This is an extension of the P5 Scaffold.
+## 🤠 Instructions
 
-- I've compiled some easily modifiable universal features that I use across most of my game templates, which usually save me at least an hour or two of setting up each template, as well as provide code consistency.
+- The aliens in the Space are Drunk 🍺
+- When they collide, you lose a life.
+- Avoid their collision - DRAG THEM AWAY!
+- Don't lose those ships, keep them in your display.
 
-- Things like the main menu, sound button, scaling, custom font loading, highscore etc. are all included here which makes it a great starting point for any game.
+- To drag, either double tap or double click.
 
-- Read the instructions below to get some understanding of how it works.
+## 😃 Getting Started
 
-## Getting Started
-Main code is in *frontend/app/index.js*
+Main code is in `frontend/app/index.js`.
 
-## About The Game
+I've provided comments in the most important parts of the code, so you don't get lost. 
 
-Controls: How is this game played?
+Feel free to modify anything, upgrade the game, add more stuff!
 
-## Tips 
-- To end a game, simply change *gameOver* to *TRUE*. This will take you to the main menu.
-- Clicking the PLAY button will restart the game (resets the *gameOver* boolean and calls the *init()* function).
-- Reset everything in *init()* function (clear out all arrays, reset variables to their initial state etc. simply get everything as it was when the game loaded).
-- Code with comment *"DELETE THIS"* is just example and can be deleted once you've checked out how it works
-- Use *checkHighscore()* whenever you want to check for highscore and save it to localStorage
-- Everything with a comment *"EXAMPLE"* above it is there just for illustration purposes and can be deleted once you want to make your own game.
+## 🖥️ Spin up the game locally
 
-## Scaling
+- Run 
+```
+$ git clone <YOUR_REMIXED_REMOTE_URL> <PROJECT_NAME>
+$ cd <PROJECT_NAME>/frontend
+$ npm i
+$ npm start
+```
 
-- This system for scaling is the one I use across all of my templates.
-- It's mostly based on using the *objSize* variable as a base unit size that is calculated when the app starts and on resize event.
-- Using it will make sure your game objects remain roughly the same size compared to the game view.
-- If you have CSS experience, you can think of it as something like a *vmin* viewport unit.
-- Basically, instead of using hardcoded pixels to draw objects, you use *objSize*.
-- To draw an object you would do something like:
+- Visit [https://localhost:8080](https://localhost:8080)
 
-*image(myImage, pos.x, pos.y, objSize, objSize);*
-
-Which would make sure it scales properly relative to screen size.
-- If you want bigger or smaller objects, just multiply *objSize* with a value.
-- You can also use *objSize* to determine positions:
-
-*pos.x = width/2 + objSize * 2;*
-
-Would offset the X coordinate by two objSizes right of the center.
-
-- Have fun playing with this, it's really simple once you get the hang of it and could really simplify your code!
-
-
-
-# Customizations
-
-Include tips for the best types of assets in each customization section.
+## ⚒️ Customizations
 
 Things that can be customized:
 
-## Colors
+### Colors
 
-- Background
-- Title
-- Instructions
-- Play Button
-- Score and High Score
+- Background color
+- Instructions text color
+- Score text color
+- Highscore text color
+- *And so much more!*
+- **Take a look at the Koji Color VCC to see what colors can be altered.**
 
 
-## Images
-- Background (optional)
+### Images
+
+- Spaceship Images (Called Draggables)
 - Life Icon
+- Sound Image
+- Mute Image
+- Background
 
-## Sounds
-- Music
 
-## Game Settings
-- Any Google Font can be used
-- All game text
-- Lives
+### Sounds
 
-## NOTES
+- Background music
 
-Avoid resizing the game window while playing, weird stuff happens.
+### Game Settings
 
-## Support and suggestions
-Please feel free to [contact me](https://withkoji.com/~Svarog1389) if you have any suggestions!   
+- `strings.json`: numberOfDraggables 👉 Integer. Min 2, Max 6.
+
+## 📖 Notes
+
+Avoid resizing the game window while playing, weird stuff happens. On desktop, play only on large sizes. **If you resize your browser window to very short, game won't work.**
+
+Few Koji Visual Customization Controls are already there for you to use. They were put together by @Svarog and @kumar_abhirup on Koji platform.
+
+**Special thanks to @Svarog on Koji platform for his phenomenal help in the making of this game.**
+
+## 🤙 Wanna contribute?
+
+Just shoot a Pull Request at [the official GitHub repository of this game 📦](https://github.com/KumarAbhirup/drunk_aliens)
+
+Or follow me and DM on [Twitter @kumar_abhirup](https://twitter.com/kumar_abhirup) 🙌
+
+Or hit me up on Koji's official Discord server, username: kumar_abhirup 🌱
+
+## 📝 Licence
+
+**GPL © [Kumar Abhirup](https://kumar.now.sh) and [Svarog](https://withkoji.com/~Svarog1389)**
+
+_Follow me 👋 **on Twitter**_ →   [![Twitter](https://img.shields.io/twitter/follow/kumar_abhirup.svg?style=social&label=@kumar_abhirup)](https://twitter.com/kumar_abhirup/)
+
+## Credits for assets
+
+OpenGameArt 👉 [https://opengameart.org](https://opengameart.org)

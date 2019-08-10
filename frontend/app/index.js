@@ -248,9 +248,11 @@ function draw() {
     } else {
 
         //Update and render all game objects here
-        for (let i = 0; i < nodes.length; i++) {
-            nodes[i].update();
-            nodes[i].render();
+        if (!isMobile) {
+            for (let i = 0; i < nodes.length; i++) {
+                nodes[i].update();
+                nodes[i].render();
+            }
         }
 
         //===Update all floating text objects
